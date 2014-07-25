@@ -30,7 +30,17 @@ module.exports = {
     res.render('./../server/views/users/edit', {title:'Welcome Page'});
   },
   login: function(req, res) {
-    console.log("Form's email is ", req.body.email)
-    // var user = User.find({email: req.})
+    var user = User.findOne({username: req.body.username}, function(err, result) {
+      if(err) {
+        res.send(JSON.stringify(err));
+      } else {
+        if (result === null || result['password'] !== req.body.password) {
+         res.send({status: 'Fail', message: 'Invalid username/password combination'})
+       } else {
+         res.send({status: 'Success', _id: user._id })
+       }
+      }
+    })
+
   }
 }

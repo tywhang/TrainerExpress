@@ -76,22 +76,21 @@
 					password: $scope.new_user.password,
 					password_confirmation: $scope.new_user.password_confirmation
 				}).success(function(data){
-					$scope.errors = data.errors;
+					$scope.signup_errors = data.errors;
 					if (data.status == 'success') {
 						SessionFactory.setSessionID(data._id);
-						console.log(SessionFactory.getSessionID());
 					}
 				})
 			}
 
 			$scope.loginUser = function() {
-				alert('Loggin in!')
-				// $http.post('/users/login', {
-				// 	username: $scope.return_user.username,
-				// 	password: $scope.return_user.password
-				// }).success(function(data) {
-
-				// })
+				$http.post('/users/login', {
+					username: $scope.return_user.username,
+					password: $scope.return_user.password
+				}).success(function(data) {
+					$scope.login_error = data.message
+					SessionFactory.setSessionID(data._id)
+				})
 			}
 		});
 	</script>
