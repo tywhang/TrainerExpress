@@ -12,14 +12,14 @@ module.exports = {
   });
  },
  create: function(req, res){
-  var a = new User(req.body);
-  a.save(function(err){
+  var user = new User(req.body);
+  user.save(function(err){
    if(err){
     res.send(JSON.stringify(err));
    }
    else
    {
-    res.send('success');
+    res.send({ status: 'success', _id: user._id });
    }
   });
  },

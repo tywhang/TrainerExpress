@@ -2,9 +2,10 @@ var users = require('./../server/controllers/users.js');
 
 
 module.exports = function Routes(app){
- app.get('/', function(req,res) { 
- 	res.render('./../server/views/index')
+ app.get('/', function(req,res) {
+ 	res.render('./../views/index')
  });
+
  app.get('/users', function(req,res) { 
  	users.index(req,res) 
  });

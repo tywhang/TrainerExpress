@@ -11,8 +11,6 @@ var path = require('path')
       parseAppId: 'PARSE_APP_ID',
       parseApiKey: 'PARSE_MASTER_KEY'
     };
-console.log('in the config');
-
 
 module.exports = {
   development: {
