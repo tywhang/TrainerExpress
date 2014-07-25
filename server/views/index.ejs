@@ -11,26 +11,22 @@
 	<!-- Bootstrap JS -->
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<!-- Angular -->
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
 
 	<style>
 		h3 {
 			margin: 5px;
 		}
-
 		.quote {
 			margin-top: 25%;
 		}
-
 		form {
 			margin-top: 5em;
 		}
-
 		form input {
 			margin: 0.5em 0;
 		}
-
 		.errorMsg {
 			color: red;
 		}
@@ -41,7 +37,7 @@
 			$routeProvider
 				.when('/',
 				{
-					templateUrl: '/partials/login.html'
+					templateUrl: 'partials/login.html'
 				})
 				.otherwise(
 				{
@@ -74,7 +70,8 @@
 		trex.controller('MainController', function($http, $scope, SessionFactory) {
 
 			$scope.addUser = function() {
-				$http.post('/users/create', {username: $scope.new_user.username,
+				$http.post('/users/create', {
+					username: $scope.new_user.username,
 					email: $scope.new_user.email,
 					password: $scope.new_user.password,
 					password_confirmation: $scope.new_user.password_confirmation
@@ -87,10 +84,14 @@
 				})
 			}
 
-			$scope.listUsers = function() {
-				for (var i = 0; i < $scope.users.length; i++) {
-					console.log($scope.users[i]);
-				}
+			$scope.loginUser = function() {
+				alert('Loggin in!')
+				// $http.post('/users/login', {
+				// 	username: $scope.return_user.username,
+				// 	password: $scope.return_user.password
+				// }).success(function(data) {
+
+				// })
 			}
 		});
 	</script>
@@ -100,45 +101,5 @@
 		<h3>Trainer Express</h3>
 	</div>
 	<div ng-view=""></div>
-	<div ng-controller="MainController">
-
-	<div class="quote text-center">
-		<h4>You bring the drive</h4>
-		<h4>We provide the direction</h4>
-	</div>
-	<form action="/users/login" class="col-xs-8 col-xs-offset-2 text-center" method="post">
-		<input type="text" class="form-control" name="email" placeholder="Email">
-		<input type="password" class="form-control" name="password" placeholder="Password">
-		<button type="submit" class="btn btn-primary">Log In</button>
-	</form>
-	<div class="col-xs-8 col-xs-offset-2 text-center">
-		<button class="btn btn-default" data-toggle="modal" data-target="#registerModal">First Time?</button>
-	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  	<div class="modal-dialog">
-	    	<div class="modal-content">
-	      		<div class="modal-header">
-	        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        		<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-	      		</div>
-	      		<div class="modal-body">
-	        		<div class="col-xs-8 col-xs-offset-2 text-center">
-	        			<p class="errorMsg" ng-bind="errors.username.message"></p>
-						<input type="text" class="form-control" ng-model="new_user.username" placeholder="Username">
-						<p class="errorMsg" ng-bind="errors.email.message"></p>
-						<input type="text" class="form-control" ng-model="new_user.email" placeholder="Email">
-						<p class="errorMsg" ng-bind="errors.password.message"></p>
-						<input type="password" class="form-control" ng-model="new_user.password" placeholder="Password">
-						<p class="errorMsg" ng-bind="errors.password_confirm.message"></p>
-						<input type="password" class="form-control" ng-model="new_user.password_confirmation" placeholder="Confirm password">
-						<button class="btn btn-primary" ng-click="addUser()">Register</button>
-					</div>
-	      		</div>
-	      		<div class="modal-footer"></div>
-	    	</div>
-	  	</div>
-	</div>
-</div>
 </body>
 </html>

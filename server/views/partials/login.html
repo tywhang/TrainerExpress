@@ -4,11 +4,11 @@
 		<h4>You bring the drive</h4>
 		<h4>We provide the direction</h4>
 	</div>
-	<form action="/users/login" class="col-xs-8 col-xs-offset-2 text-center" method="post">
-		<input type="text" class="form-control" name="email" placeholder="Email">
-		<input type="password" class="form-control" name="password" placeholder="Password">
-		<button type="submit" class="btn btn-primary">Log In</button>
-	</form>
+	<div class="col-xs-8 col-xs-offset-2 text-center">
+		<input type="text" class="form-control" ng-model="return_user.username" placeholder="Username">
+		<input type="password" class="form-control" ng-model="return_user.password" placeholder="Password">
+		<button class="btn btn-primary" ng-click="loginUser()">Log In</button>
+	</div>
 	<div class="col-xs-8 col-xs-offset-2 text-center">
 		<button class="btn btn-default" data-toggle="modal" data-target="#registerModal">First Time?</button>
 	</div>

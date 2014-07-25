@@ -3,7 +3,7 @@ var users = require('./../server/controllers/users.js');
 
 module.exports = function Routes(app){
  app.get('/', function(req,res) {
- 	res.render('./../views/index')
+ 	res.render('./../server/views/index')
  });
 
  app.get('/users', function(req,res) { 
@@ -27,5 +27,7 @@ module.exports = function Routes(app){
  app.post('/users/newUser_json', function(req,res) { 
  	users.newUser_json(req,res) 
  });
-
+ app.post('/users/login', function(req, res) {
+ 	users.login(req, res)
+ })
 };
