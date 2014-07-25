@@ -1,0 +1,63 @@
+<style>
+	body {
+		padding: 5px;
+	}
+
+	h3 {
+		margin: 5px 0;
+	}
+
+	h4 {
+		margin: 1em 0;
+	}
+
+	.welcome h4, .welcome a {
+		display: inline-block;
+	}
+
+	.section {
+		height: 14em;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+		.slide {
+			display: inline-block;
+			height: 10em;
+			width: 10em;
+			border: 1px solid silver;
+			text-align: center;
+		}
+
+		button {
+			margin-top: 10px;
+		}
+</style>
+<div ng-controller="UserController">
+	<div class="welcome">
+		<h4>Welcome Ted Whang!</h4>
+		<a class="pull-right">Logout</a>
+	</div>
+
+	<div class="mySection section">
+		<h5>My Custom Workouts</h5>
+		<a href="" class="slide">Yoga - Hatha</a>
+		<a href="" class="slide">Quick 4</a>
+		<a href="" class="slide">Tabata</a>
+		<a href="" class="slide">Morning routine</a>
+		<a href="" class="slide">Stretching</a>
+		<a href="" class="slide">Swim stretch</a>
+	</div>
+	<div class="popSection section">
+		<h5>Popular Workout Routines</h5>
+		<a href="" class="slide">Morning routine</a>
+		<a href="" class="slide">Stretching</a>
+		<a href="" class="slide">Swim stretch</a>
+		<a href="" class="slide">Yoga - Hatha</a>
+		<a href="" class="slide">Quick 4</a>
+		<a href="" class="slide">Tabata</a>
+	</div>
+	<div class="bottom text-center">
+		<button class="btn btn-default">Workout Dashboard</button>
+	</div>
+</div>

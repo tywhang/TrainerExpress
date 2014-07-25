@@ -24,7 +24,9 @@ module.exports = {
     });
   },
   show: function(req, res) {
-    res.render('./../server/views/users/show', {title:'Welcome Page'});
+    var user = User.find({_id: req.params._id})
+    console.log('User is ' + user)
+    res.send(user)
   },
   edit: function(req, res) {
     res.render('./../server/views/users/edit', {title:'Welcome Page'});
@@ -37,7 +39,7 @@ module.exports = {
         if (result === null || result['password'] !== req.body.password) {
          res.send({status: 'Fail', message: 'Invalid username/password combination'})
        } else {
-         res.send({status: 'Success', _id: user._id })
+         res.send({status: 'Success', _id: result['_id'] })
        }
       }
     })

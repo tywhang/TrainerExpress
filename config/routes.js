@@ -1,5 +1,5 @@
 var users = require('./../server/controllers/users.js');
-
+var session = require('./../server/controllers/session.js');
 
 module.exports = function Routes(app){
  app.get('/', function(req,res) {
@@ -29,5 +29,15 @@ module.exports = function Routes(app){
  });
  app.post('/users/login', function(req, res) {
  	users.login(req, res)
+ });
+
+ app.get('/session', function(req, res) {
+ 	session.get(req, res)
+ });
+ app.post('/session/create', function(req, res) {
+ 	session.set(req, res)
+ });
+ app.get('/session/destroy', function(req, res) {
+ 	session.destroy(req,res)
  });
 };

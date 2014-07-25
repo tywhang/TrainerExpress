@@ -14,23 +14,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
 
-	<style>
-		h3 {
-			margin: 5px;
-		}
-		.quote {
-			margin-top: 25%;
-		}
-		form {
-			margin-top: 5em;
-		}
-		form input {
-			margin: 0.5em 0;
-		}
-		.errorMsg {
-			color: red;
-		}
-	</style>
+	
 	<script>
 		var trex = angular.module('trex', ['ngRoute']);
 		trex.config(function($routeProvider) {
@@ -39,35 +23,48 @@
 				{
 					templateUrl: 'partials/login.html'
 				})
+				.when('/users/:id',
+				{
+					templateUrl: 'partials/user-dashboard.html'
+				})
 				.otherwise(
 				{
 					redirectTo: '/'
 				});
 		});
 
-		trex.factory('SessionFactory', function() {
-			var sessionID = null;
-
+		trex.factory('SessionFactory', function($http) {
 			factory = {};
-			factory.setSessionID = function(_id) {
-				sessionID = _id;
+			factory.setSessionID = function(id) {
+				$http.post('/session/create', {
+					sessionID: id
+				})
 			}
 
-			factory.getSessionID = function() {
-				return sessionID;
+			factory.getSessionID = function(callback) {
+				$http.get('/session').success(function(data) {
+					callback(data.sessionID);
+				})
+
+				return 5;
 			}
 
 			factory.destroySessionID = function() {
-				sessionID = null;
+				$http.get('/session/destroy')
 			}
 
 			return factory;
 		});
 
-		trex.controller('HeaderController', function($scope){
+		trex.controller('HeaderController', function($scope, SessionFactory){
+			
+			SessionFactory.getSessionID(function(data){
+				$scope.sessionID = data;
+			});
+			
 		});
 
-		trex.controller('MainController', function($http, $scope, SessionFactory) {
+		trex.controller('FrontPageController', function($http, $scope, $location, SessionFactory) {
 
 			$scope.addUser = function() {
 				$http.post('/users/create', {
@@ -79,6 +76,7 @@
 					$scope.signup_errors = data.errors;
 					if (data.status == 'success') {
 						SessionFactory.setSessionID(data._id);
+						$location.path('/users/' + data._id)
 					}
 				})
 			}
@@ -90,14 +88,24 @@
 				}).success(function(data) {
 					$scope.login_error = data.message
 					SessionFactory.setSessionID(data._id)
+					$location.path('/users/' + data._id)
 				})
 			}
 		});
+
+		trex.controller('UserController', function($http, $location, $scope, SessionFactory) {
+
+			$scope.logoutUser = function() {
+				SessionFactory.destroySessionID()
+				$location.path('/')
+			}
+		})
 	</script>
 </head>
 <body>
 	<div ng-controller="HeaderController">
 		<h3>Trainer Express</h3>
+		<p>Session ID is: <span ng-bind="sessionID"></span></p>
 	</div>
 	<div ng-view=""></div>
 </body>

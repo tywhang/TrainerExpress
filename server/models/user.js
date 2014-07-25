@@ -22,6 +22,11 @@ var passwordValidator = [
 		validator: 'isLength',
 		arguments: [6, 20],
 		message: 'Password should be between 6 and 20 characters'
+	}),
+	validate({
+		validator: 'matches',
+		arguments: this.password_confirmation,
+		message: 'Passwords do not match'
 	})
 ]
 
@@ -32,6 +37,7 @@ var UserSchema = new mongoose.Schema({
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }
 });
+
 
 UserSchema.plugin(uniqueValidator)
 
