@@ -35,8 +35,8 @@
 </style>
 <div ng-controller="UserController">
 	<div class="welcome">
-		<h4>Welcome Ted Whang!</h4>
-		<a class="pull-right">Logout</a>
+		<h4>Welcome <span ng-bind="username"></span></h4>
+		<a class="pull-right" ng-click="logoutUser()">Logout</a>
 	</div>
 
 	<div class="mySection section">
@@ -58,6 +58,6 @@
 		<a href="" class="slide">Tabata</a>
 	</div>
 	<div class="bottom text-center">
-		<button class="btn btn-default">Workout Dashboard</button>
+		<a class="btn btn-default" ng-href="#/routines">Workout Dashboard</a>
 	</div>
 </div>

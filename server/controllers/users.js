@@ -24,9 +24,14 @@ module.exports = {
     });
   },
   show: function(req, res) {
-    var user = User.find({_id: req.params._id})
-    console.log('User is ' + user)
-    res.send(user)
+    var user = User.findOne({_id: req.params.id}, function(err, result) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('result', result)
+        res.send(result)
+      }
+    })
   },
   edit: function(req, res) {
     res.render('./../server/views/users/edit', {title:'Welcome Page'});

@@ -4,103 +4,18 @@
 	<meta charset="UTF-8">
 	<title>TrainerExpress - Sign Up/Log In</title>
 	
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<!-- jQuery -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<!-- Bootstrap JS -->
+	<!-- Bootstrap CSS and JS -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<!-- Angular -->
+	<!-- Angular and Angular Routes-->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
-
-	
-	<script>
-		var trex = angular.module('trex', ['ngRoute']);
-		trex.config(function($routeProvider) {
-			$routeProvider
-				.when('/',
-				{
-					templateUrl: 'partials/login.html'
-				})
-				.when('/users/:id',
-				{
-					templateUrl: 'partials/user-dashboard.html'
-				})
-				.otherwise(
-				{
-					redirectTo: '/'
-				});
-		});
-
-		trex.factory('SessionFactory', function($http) {
-			factory = {};
-			factory.setSessionID = function(id) {
-				$http.post('/session/create', {
-					sessionID: id
-				})
-			}
-
-			factory.getSessionID = function(callback) {
-				$http.get('/session').success(function(data) {
-					callback(data.sessionID);
-				})
-
-				return 5;
-			}
-
-			factory.destroySessionID = function() {
-				$http.get('/session/destroy')
-			}
-
-			return factory;
-		});
-
-		trex.controller('HeaderController', function($scope, SessionFactory){
-			
-			SessionFactory.getSessionID(function(data){
-				$scope.sessionID = data;
-			});
-			
-		});
-
-		trex.controller('FrontPageController', function($http, $scope, $location, SessionFactory) {
-
-			$scope.addUser = function() {
-				$http.post('/users/create', {
-					username: $scope.new_user.username,
-					email: $scope.new_user.email,
-					password: $scope.new_user.password,
-					password_confirmation: $scope.new_user.password_confirmation
-				}).success(function(data){
-					$scope.signup_errors = data.errors;
-					if (data.status == 'success') {
-						SessionFactory.setSessionID(data._id);
-						$location.path('/users/' + data._id)
-					}
-				})
-			}
-
-			$scope.loginUser = function() {
-				$http.post('/users/login', {
-					username: $scope.return_user.username,
-					password: $scope.return_user.password
-				}).success(function(data) {
-					$scope.login_error = data.message
-					SessionFactory.setSessionID(data._id)
-					$location.path('/users/' + data._id)
-				})
-			}
-		});
-
-		trex.controller('UserController', function($http, $location, $scope, SessionFactory) {
-
-			$scope.logoutUser = function() {
-				SessionFactory.destroySessionID()
-				$location.path('/')
-			}
-		})
-	</script>
+	<!-- Routes, controllers, factories -->
+	<script src="/javascripts/app.js"></script>
+	<script src="/javascripts/controllers.js"></script>
+	<script src="/javascripts/factories.js"></script>
 </head>
 <body>
 	<div ng-controller="HeaderController">
