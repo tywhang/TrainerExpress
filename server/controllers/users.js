@@ -16,9 +16,7 @@ module.exports = {
     user.save(function(err){
       if(err){
         res.send(JSON.stringify(err));
-      }
-      else
-      {
+      } else {
         res.send({ status: 'success', _id: user._id });
       }
     });
@@ -28,7 +26,6 @@ module.exports = {
       if (err) {
         console.log(err)
       } else {
-        console.log('result', result)
         res.send(result)
       }
     })

@@ -1,5 +1,6 @@
 var users = require('./../server/controllers/users.js');
 var session = require('./../server/controllers/session.js');
+var routines = require('./../server/controllers/routines.js');
 
 module.exports = function Routes(app){
  app.get('/', function(req,res) {
@@ -9,12 +10,6 @@ module.exports = function Routes(app){
  app.get('/users', function(req, res) {
  	users.index(req, res)
  });
- app.get('/users/index.json', function(req,res) {
- 	users.index_json(req, res)
- });
- app.get('/users/new', function(req,res) {
- 	users.new(req, res)
- });
  app.post('/users/create', function(req,res) {
  	users.create(req, res)
  });
@@ -23,9 +18,6 @@ module.exports = function Routes(app){
  });
  app.get('/users/:id/edit', function(req,res) {
  	users.edit(req, res)
- });
- app.post('/users/newUser_json', function(req,res) {
- 	users.newUser_json(req, res)
  });
  app.post('/users/login', function(req, res) {
  	users.login(req, res)
@@ -40,4 +32,8 @@ module.exports = function Routes(app){
  app.get('/session/destroy', function(req, res) {
  	session.destroy(req,res)
  });
+
+ app.post('/routines/create', function(req, res) {
+ 	routines.create(req, res)
+ })
 };

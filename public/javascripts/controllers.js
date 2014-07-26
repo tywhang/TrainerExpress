@@ -41,8 +41,34 @@ trex.controller('UserController', function($http, $location, $scope, SessionFact
 	})
 })
 
-trex.controller('NewRoutineController', function($scope) {
+trex.controller('NewRoutineController', function($scope, $http, SessionFactory) {
+	$scope.new_routine = {}
+	$scope.new_routine.steps = []
+	SessionFactory.getSessionID(function(data) {
+		$scope.sessionID = data
+	})
 	$scope.addRoutine = function() {
-		alert('heyo')
+		$http.post('/routines/create', {
+			title: $scope.new_routine.title,
+			duration: $scope.new_routine.duration,
+			intensity: $scope.new_routine.intensity,
+			description: $scope.new_routine.description,
+			steps: $scope.new_routine.steps,
+			cycles: $scope.new_routine.cycles,
+			user_id: $scope.sessionID
+		}).success(function(data) {
+			console.log(data.errors)
+			$scope.routine_errors = data.errors
+		})
+	}
+
+	$scope.num_steps = 1
+
+	$scope.addStep = function() {
+		$scope.num_steps += 1
+	}
+
+	$scope.removeStep = function() {
+		$scope.num_steps -= 1
 	}
 })

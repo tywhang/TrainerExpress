@@ -23,6 +23,14 @@ var intensityValidator = [
 	})
 ]
 
+var descriptionValidator = [
+	validate({
+		validator: 'isLength',
+		arguments: [0, 256],
+		message: 'Max number of characters is 256'
+	})
+]
+
 var stepsValidator = [
 	validate({
 		validator: 'isLength',
@@ -42,10 +50,11 @@ var RoutineSchema = new mongoose.Schema({
 	title: { type: String, required: true, validate: titleValidator },
 	duration: { type: Number, required: true, validate: durationValidator },
 	intensity: { type: Number, required: true, validate: intensityValidator },
+	description: { type: String, required: true, validate: descriptionValidator },
 	steps: { type: Array, required: true, validate: stepsValidator },
-	cycles: { type: Number, required: true, validate: cyclesValidator },
-	num_completed: { type: Number, required: true },
-	user_id: { type: Number, required: true },
+	cycles: { type: Number, required: true, default: 0, validate: cyclesValidator },
+	num_completed: { type: Number, required: true, default: 0 },
+	user_id: { type: String, required: true },
 	created_at: { type: Date, default: Date.now },
 	updated_at: { type: Date, default: Date.now }
 })

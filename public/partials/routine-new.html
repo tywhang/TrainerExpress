@@ -5,54 +5,62 @@
 	.addStepBtn {
 		margin-bottom: 1em;
 	}
+	.errorMsg {
+		color: red;
+	}
 </style>
 
 <div ng-controller="NewRoutineController">
 	<div class="form-horizontal col-xs-10 col-xs-offset-1">
 		<div class="form-group">
+			<p class="errorMsg" ng-bind="routine_errors.title.message"></p>
 			<label for="title" class="col-xs-4">Title:</label>
 			<div class="col-xs-8">
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" ng-model="new_routine.title">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="duration" class="col-xs-4">Duration:</label>
+			<p class="errorMsg" ng-bind="routine_errors.duration.message"></p>
+			<label for="duration" class="col-xs-4">Duration: (minutes)</label>
 			<div class="col-xs-8">
-				<input type="text" class="form-control">
+				<input type="number" class="form-control" ng-model="new_routine.duration">
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="intensity" class="col-xs-4">Intensity:</label>
+			<p class="errorMsg" ng-bind="routine_errors.intensity.message"></p>
+			<label for="intensity" class="col-xs-4">Intensity: (1-10)</label>
 			<div class="col-xs-8">
-				<input type="number" class="form-control">
+				<select class="form-control" ng-model="new_routine.intensity" >
+					<option ng-repeat="n in [] | range: 10" value="{{ n + 1 }}">{{ n + 1 }}</option>
+				</select>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="title" class="col-xs-4">Title:</label>
+			<p class="errorMsg" ng-bind="routine_errors.description.message"></p>
+			<label for="description" class="col-xs-4">Description:</label>
 			<div class="col-xs-8">
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" ng-model="new_routine.description">
 			</div>
 		</div>
 		<h2 class="text-center"><u>Steps</u></h2>
-		<div class="form-group">
-			<label for="step1" class="col-xs-1">1</label>
-			<div class="col-xs-7">
-				<input type="text" class="form-control">
+		<p class="errorMsg" ng-bind="routine_errors.steps.message"></p>
+		<div ng-repeat="n in [] | range: num_steps">
+			<div class="form-group">
+				<label for="step" class="col-xs-1"><span ng-bind="$index + 1"></span></label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control" ng-model="new_routine.steps[$index]">
+				</div>
+				<button class="btn btn-default col-xs-3" ng-if="$last && num_steps > 1" ng-click="removeStep()">Remove</button>
 			</div>
-			<button class="btn btn-default col-xs-3">Remove</button>
 		</div>
-		<div class="form-group">
-			<label for="step2" class="col-xs-1">2</label>
-			<div class="col-xs-7">
-				<input type="text" class="form-control">
-			</div>
-			<button class="btn btn-default col-xs-3">Remove</button>
-		</div>
-		<button class="addStepBtn btn btn-default center-block">Add a step</button>
+		<button class="addStepBtn btn btn-default center-block" ng-click="addStep()">Add a step</button>
 		<div class="form-group">
 			<label for="repetitions" class="col-xs-4">Repeat?</label>
 			<div class="col-xs-8">
-				<input type="number" class="form-control">
+				<select class="form-control" ng-model="new_routine.cycles">
+					<option value="0">No</option>
+					<option ng-repeat="n in [] | range: 10" value="{{ n + 1 }}">{{ n + 1 }}x</option>
+				</select>
 			</div>
 		</div>
 		<button class="btn btn-default center-block" ng-click="addRoutine()">Submit</button>
