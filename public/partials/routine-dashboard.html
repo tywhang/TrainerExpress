@@ -8,30 +8,22 @@
 	}
 </style>
 
-<a ng-href="#/routines/new" class="btn btn-default">Add a new routine</a>
+<div ng-controller="RoutineController">
+	<a ng-href="#/routines/new" class="btn btn-default">Add a new routine</a>
 
-<div class="main">
-	<h3><u>My submitted workout routines</u></h3>
-	<div class="routine">
-		<div class="col-xs-8">
-			<h4>Morning Routine</h4>
-			<p>10 - 15 mins</p>
-			<p>Intensity: 3/10</p>
-		</div>
-		<div class="col-xs-4">
-			<button class="btn btn-default">Edit</button>
-			<button class="btn btn-default">Delete</button>
-		</div>
-	</div>
-	<div class="routine">
-		<div class="col-xs-8">
-			<h4>Pre-run stretching</h4>
-			<p>10 - 15 mins</p>
-			<p>Intensity: 3/10</p>
-		</div>
-		<div class="col-xs-4">
-			<button class="btn btn-default">Edit</button>
-			<button class="btn btn-default">Delete</button>
+	<div class="main">
+		<h3><u>My submitted workout routines</u></h3>
+
+		<div class="routine" ng-repeat="user_routine in user_routines">
+			<div class="col-xs-8">
+				<h4 ng-bind="user_routine.title"></h4>
+				<p><span ng-bind="user_routine.duration"></span> mins</p>
+				<p>Intensity: <span ng-bind="user_routine.intensity"></span>/10</p>
+			</div>
+			<div class="col-xs-4">
+				<button class="btn btn-default">Edit</button>
+				<button class="btn btn-default">Delete</button>
+			</div>
 		</div>
 	</div>
 </div>

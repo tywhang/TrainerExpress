@@ -32,8 +32,15 @@ module.exports = function Routes(app){
  app.get('/session/destroy', function(req, res) {
  	session.destroy(req,res)
  });
+ app.get('/routines', function(req, res) {
+ 	routines.routines(req, res)
+ })
+ app.post('/routines', function(req, res) {
+ 	routines.user_routines(req, res)
+ })
 
  app.post('/routines/create', function(req, res) {
  	routines.create(req, res)
+
  })
 };

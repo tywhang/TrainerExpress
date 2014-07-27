@@ -27,7 +27,7 @@ trex.controller('FrontPageController', function($http, $scope, $location, Sessio
 	}
 });
 
-trex.controller('UserController', function($http, $location, $scope, SessionFactory) {
+trex.controller('UserController', function($scope, $http, $location, SessionFactory) {
 
 	$scope.logoutUser = function() {
 		SessionFactory.destroySessionID()
@@ -35,13 +35,42 @@ trex.controller('UserController', function($http, $location, $scope, SessionFact
 	}
 
 	SessionFactory.getSessionID(function(data) {
+		$scope.sessionID = data
 		$http.get('/users/' + data).success(function(user) {
 			$scope.username = user['username']
-		})	
+
+			$http.get('/routines').success(function(allRoutines) {
+				$scope.allRoutines = allRoutines
+			})
+			
+			$http.post('/routines',
+				{
+					user_id: data.toString()
+				}).success(function(user_routines) {
+				$scope.user_routines = user_routines
+			})
+		})
 	})
+
+	
 })
 
-trex.controller('NewRoutineController', function($scope, $http, SessionFactory) {
+trex.controller('RoutineController', function($scope, $http, SessionFactory) {
+	SessionFactory.getSessionID(function(data) {
+		$scope.sessionID = data
+		$http.post('/routines',
+			{
+				user_id: data.toString()
+			}
+			).success(function(user_routines) {
+			$scope.user_routines = user_routines
+		})
+	})
+
+	
+})
+
+trex.controller('NewRoutineController', function($scope, $http, $location, SessionFactory) {
 	$scope.new_routine = {}
 	$scope.new_routine.steps = []
 	SessionFactory.getSessionID(function(data) {
@@ -59,6 +88,9 @@ trex.controller('NewRoutineController', function($scope, $http, SessionFactory) 
 		}).success(function(data) {
 			console.log(data.errors)
 			$scope.routine_errors = data.errors
+			if (data.status === 'success') {
+				$location.path('/routines')
+			}
 		})
 	}
 

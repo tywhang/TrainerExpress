@@ -41,12 +41,7 @@
 
 	<div class="mySection section">
 		<h5>My Custom Workouts</h5>
-		<a href="" class="slide">Yoga - Hatha</a>
-		<a href="" class="slide">Quick 4</a>
-		<a href="" class="slide">Tabata</a>
-		<a href="" class="slide">Morning routine</a>
-		<a href="" class="slide">Stretching</a>
-		<a href="" class="slide">Swim stretch</a>
+		<a href="" class="slide" ng-repeat="user_routine in user_routines"><span ng-bind="user_routine.title"></span></a>
 	</div>
 	<div class="popSection section">
 		<h5>Popular Workout Routines</h5>
@@ -56,6 +51,10 @@
 		<a href="" class="slide">Yoga - Hatha</a>
 		<a href="" class="slide">Quick 4</a>
 		<a href="" class="slide">Tabata</a>
+	</div>
+	<div class="allSection section">
+		<h5>All Workout Routines</h5>
+		<a href="" class="slide" ng-repeat="routine in allRoutines"><span ng-bind="routine.title"></span></a>
 	</div>
 	<div class="bottom text-center">
 		<a class="btn btn-default" ng-href="#/routines">Workout Dashboard</a>
