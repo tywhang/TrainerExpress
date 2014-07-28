@@ -21,8 +21,8 @@
 				<p>Intensity: <span ng-bind="user_routine.intensity"></span>/10</p>
 			</div>
 			<div class="col-xs-4">
-				<button class="btn btn-default">Edit</button>
-				<button class="btn btn-default">Delete</button>
+				<a ng-href="#/routines/{{ user_routine._id }}/edit" class="btn btn-default">Edit</a>
+				<a class="btn btn-default">Delete</a>
 			</div>
 		</div>
 	</div>

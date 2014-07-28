@@ -41,6 +41,14 @@ module.exports = function Routes(app){
 
  app.post('/routines/create', function(req, res) {
  	routines.create(req, res)
-
  })
+
+ app.post('/routine', function(req, res) {
+ 	routines.routine(req, res)
+ })
+
+ app.post('/routine/change', function(req, res) {
+ 	routines.update(req,res)
+ })
+
 };

@@ -12,6 +12,18 @@ module.exports = {
 			}
 		})
 	},
+
+	routine: function(req, res) {
+		var routine = Routine.findOne({ _id: req.body._id }, function(err, routine) {
+			if (err) {
+				console.log(err)
+			} else {
+				console.log('Routine', routine)
+				res.send(routine)
+			}
+		})
+	},
+
 	routines: function(req, res) {
 		var routines = Routine.find({}, function(err, routines) {
 			if (err) {
@@ -21,14 +33,33 @@ module.exports = {
 			}
 		})
 	},
+
 	user_routines: function(req, res) {
-		console.log('REQ.BODY', req.body)
 		var routines = Routine.find({ user_id: req.body.user_id }, function(err, routines) {
 			if (err) {
-				console.log('error message: ', err)
+				console.log(err)
 			} else {
-				console.log('routines', routines)
 				res.send(routines)
+			}
+		})
+	},
+
+	update: function(req, res) {
+		var routine = Routine.find({ _id: req.body._id })
+		routine.update(
+		{
+			title: req.body.title,
+			duration: req.body.duration,
+			intensity: req.body.intensity,
+			description: req.body.description,
+			steps: req.body.steps,
+			cycles: req.body.cycles,
+			updated_at: new Date
+		}, function(err, result) {
+			if (err) {
+				console.log(err)
+			} else {
+				res.send({ status: 'success' })
 			}
 		})
 	}

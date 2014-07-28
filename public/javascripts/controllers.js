@@ -27,7 +27,7 @@ trex.controller('FrontPageController', function($http, $scope, $location, Sessio
 	}
 });
 
-trex.controller('UserController', function($scope, $http, $location, SessionFactory) {
+trex.controller('UserController', function($scope, $http, $location, SessionFactory, RoutineFactory) {
 
 	$scope.logoutUser = function() {
 		SessionFactory.destroySessionID()
@@ -39,30 +39,24 @@ trex.controller('UserController', function($scope, $http, $location, SessionFact
 		$http.get('/users/' + data).success(function(user) {
 			$scope.username = user['username']
 
-			$http.get('/routines').success(function(allRoutines) {
+			RoutineFactory.getAllRoutines(function(allRoutines) {
 				$scope.allRoutines = allRoutines
 			})
-			
-			$http.post('/routines',
-				{
-					user_id: data.toString()
-				}).success(function(user_routines) {
+
+			RoutineFactory.getUserRoutines(data, function(user_routines) {
 				$scope.user_routines = user_routines
 			})
+
 		})
 	})
 
 	
 })
 
-trex.controller('RoutineController', function($scope, $http, SessionFactory) {
+trex.controller('RoutineController', function($scope, $http, SessionFactory, RoutineFactory) {
 	SessionFactory.getSessionID(function(data) {
 		$scope.sessionID = data
-		$http.post('/routines',
-			{
-				user_id: data.toString()
-			}
-			).success(function(user_routines) {
+		RoutineFactory.getUserRoutines(data, function(user_routines) {
 			$scope.user_routines = user_routines
 		})
 	})
@@ -86,7 +80,6 @@ trex.controller('NewRoutineController', function($scope, $http, $location, Sessi
 			cycles: $scope.new_routine.cycles,
 			user_id: $scope.sessionID
 		}).success(function(data) {
-			console.log(data.errors)
 			$scope.routine_errors = data.errors
 			if (data.status === 'success') {
 				$location.path('/routines')
@@ -102,5 +95,34 @@ trex.controller('NewRoutineController', function($scope, $http, $location, Sessi
 
 	$scope.removeStep = function() {
 		$scope.num_steps -= 1
+	}
+})
+
+trex.controller('EditRoutineController', function($scope, $routeParams, RoutineFactory) {
+	RoutineFactory.getRoutineById($routeParams.id, function(routine) {
+		$scope.edit_routine = routine
+		$scope.num_steps = routine.steps.length
+	})
+
+	$scope.addStep = function() {
+		$scope.num_steps += 1
+	}
+
+	$scope.removeStep = function() {
+		$scope.num_steps -= 1
+	}
+
+	$scope.changeRoutine = function() {
+		RoutineFactory.updateRoutine(
+			{
+				_id: $scope.edit_routine._id,
+				title: $scope.edit_routine.title,
+				duration: $scope.edit_routine.duration,
+				intensity: $scope.edit_routine.intensity,
+				description: $scope.edit_routine.description,
+				steps: $scope.edit_routine.steps,
+				cycles: $scope.edit_routine.cycles
+			}
+		)
 	}
 })

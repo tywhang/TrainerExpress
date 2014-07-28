@@ -1,0 +1,69 @@
+<style>
+	body {
+		margin: 5px;
+	}
+	.addStepBtn {
+		margin-bottom: 1em;
+	}
+	.errorMsg {
+		color: red;
+	}
+</style>
+
+<div ng-controller="EditRoutineController">
+	<h1>Edit</h1>
+	<div class="form-horizontal col-xs-10 col-xs-offset-1">
+		<div class="form-group">
+			<p class="errorMsg" ng-bind="routine_errors.title.message"></p>
+			<label for="title" class="col-xs-4">Title:</label>
+			<div class="col-xs-8">
+				<input type="text" class="form-control" ng-model="edit_routine.title">
+			</div>
+		</div>
+		<div class="form-group">
+			<p class="errorMsg" ng-bind="routine_errors.duration.message"></p>
+			<label for="duration" class="col-xs-4">Duration: (minutes)</label>
+			<div class="col-xs-8">
+				<input type="number" class="form-control" ng-model="edit_routine.duration">
+			</div>
+		</div>
+		<div class="form-group">
+			<p class="errorMsg" ng-bind="routine_errors.intensity.message"></p>
+			<label for="intensity" class="col-xs-4">Intensity: (1-10)</label>
+			<div class="col-xs-8">
+				<select class="form-control" ng-model="edit_routine.intensity" >
+					<option ng-repeat="n in [] | range: 10" value="{{ n + 1 }}">{{ n + 1 }}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<p class="errorMsg" ng-bind="routine_errors.description.message"></p>
+			<label for="description" class="col-xs-4">Description:</label>
+			<div class="col-xs-8">
+				<input type="text" class="form-control" ng-model="edit_routine.description">
+			</div>
+		</div>
+		<h2 class="text-center"><u>Steps</u></h2>
+		<p class="errorMsg" ng-bind="routine_errors.steps.message"></p>
+		<div ng-repeat="n in [] | range: num_steps">
+			<div class="form-group">
+				<label for="step" class="col-xs-1"><span ng-bind="$index + 1"></span></label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control" ng-model="edit_routine.steps[$index]">
+				</div>
+				<button class="btn btn-default col-xs-3" ng-if="$last && num_steps > 1" ng-click="removeStep()">Remove</button>
+			</div>
+		</div>
+		<button class="addStepBtn btn btn-default center-block" ng-click="addStep()">Add a step</button>
+		<div class="form-group">
+			<label for="repetitions" class="col-xs-4">Repeat?</label>
+			<div class="col-xs-8">
+				<select class="form-control" ng-model="edit_routine.cycles">
+					<option value="0">No</option>
+					<option ng-repeat="n in [] | range: 10" value="{{ n + 1 }}">{{ n + 1 }}x</option>
+				</select>
+			</div>
+		</div>
+		<a class="btn btn-default center-block" ng-click="changeRoutine()">Make changes</a>
+	</div>
+</div>

@@ -27,6 +27,10 @@ trex.config(function($routeProvider) {
 		{
 			templateUrl: 'partials/routine-new.html'
 		})
+		.when('/routines/:id/edit',
+		{
+			templateUrl: 'partials/routine-edit.html'
+		})
 		.otherwise(
 		{
 			redirectTo: '/'
