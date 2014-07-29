@@ -1,42 +1,66 @@
 <style>
-	h3 {
-		margin: 5px;
+	h4 {
+		font-size: 4vmax;
 	}
-	.quote {
-		margin-top: 25%;
+
+	.centerContainer {
+		background: url('images/girlontrack.jpg') no-repeat;
+		background-size: cover;
+		position: absolute;
+		height: 60%;
+		top: 20%;
+		left: 50%;
+		width: 100%;
+		margin-left: -50%;
+		
 	}
-	form {
+
+	.centerTitle {
 		margin-top: 5em;
-	}
-	form input {
+		color: silver;
+		text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	}	
+
+	input {
 		margin: 0.5em 0;
 	}
+
+	.modal-content {
+		color: black;
+		background-color: white;
+		height: 50%;
+		margin-top: 25%;
+		border: 1px solid black;
+	}
+
 	.errorMsg {
 		color: red;
 	}
+
+	.modal-header, .modal-footer {
+		border: none;
+	}
 </style>
 
-<div ng-controller="FrontPageController">
-	<div class="quote text-center">
+<div ng-controller="FrontPageController" class="centerContainer">
+	<div class="quote text-center centerTitle">
 		<h4>You bring the drive</h4>
 		<h4>We provide the direction</h4>
 	</div>
-	<div class="col-xs-8 col-xs-offset-2 text-center">
+	<div class="text-center col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3 centerContent">
 		<p class="errorMsg" ng-bind="login_error"></p>
 		<input type="text" class="form-control" ng-model="return_user.username" placeholder="Username">
 		<input type="password" class="form-control" ng-model="return_user.password" placeholder="Password">
 		<button class="btn btn-primary" ng-click="loginUser()">Log In</button>
-	</div>
-	<div class="col-xs-8 col-xs-offset-2 text-center">
 		<button class="btn btn-default" data-toggle="modal" data-target="#registerModal">First Time?</button>
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
-	      		<div class="modal-header">
+	      		<div class="modal-header text-center">
 	        		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        		<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+	        		<h4 class="modal-title" id="myModalLabel">Register</h4>
 	      		</div>
 	      		<div class="modal-body">
 	        		<div class="col-xs-8 col-xs-offset-2 text-center">
@@ -48,10 +72,11 @@
 						<input type="password" class="form-control" ng-model="new_user.password" placeholder="Password">
 						<p class="errorMsg" ng-bind="signup_errors.password_confirm.message"></p>
 						<input type="password" class="form-control" ng-model="new_user.password_confirmation" placeholder="Confirm password">
-						<button class="btn btn-primary" ng-click="addUser()">Register</button>
+		      			<button class="btn btn-primary" ng-click="addUser()">Register</button>
 					</div>
 	      		</div>
-	      		<div class="modal-footer"></div>
+	      		<div class="modal-footer text-center">
+				</div>
 	    	</div>
 	  	</div>
 	</div>

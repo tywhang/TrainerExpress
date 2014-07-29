@@ -16,11 +16,16 @@
 	<script src="/javascripts/app.js"></script>
 	<script src="/javascripts/controllers.js"></script>
 	<script src="/javascripts/factories.js"></script>
+	<style>
+		body {
+			background-color: black;
+			color: white;
+		}
+	</style>
 </head>
 <body>
 	<div ng-controller="HeaderController">
 		<h3>Trainer Express</h3>
-		<p>Session ID is: <span ng-bind="sessionID"></span></p>
 	</div>
 	<div ng-view=""></div>
 </body>
