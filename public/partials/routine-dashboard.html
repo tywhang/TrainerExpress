@@ -16,7 +16,7 @@
 
 		<div class="routine" ng-repeat="user_routine in user_routines">
 			<div class="col-xs-8">
-				<h4 ng-bind="user_routine.title"></h4>
+				<a ng-href="#/routines/{{ user_routine._id }}"><h4 ng-bind="user_routine.title"></h4></a>
 				<p><span ng-bind="user_routine.duration"></span> mins</p>
 				<p>Intensity: <span ng-bind="user_routine.intensity"></span>/10</p>
 			</div>

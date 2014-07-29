@@ -1,0 +1,31 @@
+	<style>
+		button b, button h6 {
+			display: inline;
+		}
+
+		.main {
+			border: 1px solid black;
+			margin-top: 2em;
+			margin-bottom: 2em;
+			padding: 1em;
+		}
+	</style>
+<div ng-controller="RoutineSequenceController">
+	<h3>Trainer Express</h3>
+	<a class="btn btn-default" ng-href="#/routines"><b class="glyphicon glyphicon-chevron-left"></b><h6> Back to Homepage</h6></a>
+	
+	<div class="main col-xs-10 col-xs-offset-1 text-center">
+		<h2>Great work!</h2>
+		<h4 ng-bind="routine.title"></h4>
+		<h5><u>Workout Summary</u></h5>
+
+		<p><strong>Status:</strong> Completed</p>
+		<p><strong>Time Elapsed:</strong> 4 mins 30 secs</p>
+		<button class="btn btn-primary">Share on Facebook</button>
+	</div>
+
+	<div class="quote text-center col-xs-6 col-xs-offset-3">
+		<p>"You will never find time for anything. You must make it."</p>
+		<p><strong>Charles Buxton</strong></p>
+	</div>
+</div>

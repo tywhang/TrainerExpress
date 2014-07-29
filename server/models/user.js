@@ -38,7 +38,6 @@ var UserSchema = new mongoose.Schema({
   updated_at: { type: Date, default: Date.now }
 });
 
-
 UserSchema.plugin(uniqueValidator)
 
 mongoose.model('User', UserSchema);

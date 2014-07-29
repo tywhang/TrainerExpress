@@ -1,32 +1,37 @@
-trex.controller('FrontPageController', function($http, $scope, $location, SessionFactory) {
-
+trex.controller('FrontPageController', function($http, $scope, $location, SessionFactory, UserFactory) {
+	$scope.signup_errors = {}
 	$scope.addUser = function() {
-		$http.post('/users/create', {
-			username: $scope.new_user.username,
-			email: $scope.new_user.email,
-			password: $scope.new_user.password,
-			password_confirmation: $scope.new_user.password_confirmation
-		}).success(function(data){
-			$scope.signup_errors = data.errors;
-			if (data.status == 'success') {
-				SessionFactory.setSessionID(data._id);
-				$location.path('/users/' + data._id)
-			}
-		})
+		if ($scope.new_user.password !== $scope.new_user.password_confirmation) {
+			$scope.signup_errors.password = {}
+			$scope.signup_errors.password.message = 'Passwords do not match'
+		} else {
+			UserFactory.addUser({
+				username: $scope.new_user.username,
+				email: $scope.new_user.email,
+				password: $scope.new_user.password,
+				password_confirmation: $scope.new_user.password_confirmation
+			}, function(data) {
+				$scope.signup_errors = data.errors;
+				if (data.status == 'success') {
+					SessionFactory.setSessionID(data._id);
+					$location.path('/users/' + data._id)
+				}
+			})
+		}
 	}
 
 	$scope.loginUser = function() {
-		$http.post('/users/login', {
+		UserFactory.loginUser({
 			username: $scope.return_user.username,
 			password: $scope.return_user.password
-		}).success(function(data) {
-			console.log(data)
-			$scope.login_error = data.message
+		}, function(data) {
 			if (data.status == 'success') {
 				SessionFactory.setSessionID(data._id)
 				$location.path('/users/' + data._id)
+			} else {
+				$scope.login_error = data.message
 			}
-		})
+		}) 
 	}
 });
 
@@ -38,7 +43,7 @@ trex.controller('HeaderController', function($scope, SessionFactory){
 	
 });
 
-trex.controller('UserController', function($scope, $http, $location, SessionFactory, RoutineFactory) {
+trex.controller('UserController', function($scope, $http, $location, SessionFactory, RoutineFactory, UserFactory) {
 
 	$scope.logoutUser = function() {
 		SessionFactory.destroySessionID()
@@ -47,9 +52,8 @@ trex.controller('UserController', function($scope, $http, $location, SessionFact
 
 	SessionFactory.getSessionID(function(data) {
 		$scope.sessionID = data
-		$http.get('/users/' + data).success(function(user) {
+		UserFactory.getUsernameById(data, function(user) {
 			$scope.username = user['username']
-
 			RoutineFactory.getAllRoutines(function(allRoutines) {
 				$scope.allRoutines = allRoutines
 			})
@@ -57,7 +61,6 @@ trex.controller('UserController', function($scope, $http, $location, SessionFact
 			RoutineFactory.getUserRoutines(data, function(user_routines) {
 				$scope.user_routines = user_routines
 			})
-
 		})
 	})
 
@@ -144,5 +147,34 @@ trex.controller('EditRoutineController', function($scope, $routeParams, RoutineF
 				cycles: $scope.edit_routine.cycles
 			}
 		)
+	}
+})
+
+trex.controller('RoutineSequenceController', function($scope, $location, $routeParams, RoutineFactory) {
+	RoutineFactory.getRoutineById($routeParams.id, function(routine) {
+		$scope.routine = routine
+	})
+
+	$scope.startRoutine = function() {
+		$location.path('/routine-sequence/' + $scope.routine._id)
+	}
+
+	$scope.index = 0
+	$scope.cycles = 0
+	$scope.finish = false
+
+	$scope.nextStep = function() {
+		$scope.index += 1
+		if ($scope.index == $scope.routine.steps.length) {
+			$scope.index = 0
+			$scope.cycles += 1
+		}
+		if ($scope.index == $scope.routine.steps.length - 1 && $scope.cycles == $scope.routine.cycles - 1) {
+			$scope.finish = true
+		}
+	}
+
+	$scope.finishRoutine = function() {
+		$location.path('/routine-finish/' + $scope.routine._id)
 	}
 })

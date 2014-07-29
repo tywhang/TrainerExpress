@@ -1,0 +1,55 @@
+	<style>
+		body {
+			padding: 5px;
+		}
+
+		.rightHead {
+			text-align: right;
+		}
+
+		.rightHead h4, .soundBtn {
+			display: inline-block;
+		}
+
+		.main {
+			border: 1px solid black;
+			padding: 2em 0 4em 0;
+			margin-top: 2em;
+		}
+
+		.main button {
+			font-size: 20px;
+			width: 10em;
+			height: 3em;
+			margin-top: 2em;
+		}
+
+		.tip {
+			margin-top: 2em;
+		}
+	</style>
+
+<div ng-controller="RoutineSequenceController">
+	<div class="leftHead col-xs-6">
+		<h4 ng-bind="routine.title"></h4>
+		<h6>Duration: <span ng-bind="routine.duration"></span> mins</h6>
+		<h6>Intensity: <span ng-bind="routine.intensity"></span>/10</h6>
+	</div>
+	<div class="rightHead col-xs-6">
+		<button class="btn btn-default">End</button>
+		<div class="row">
+			<h4>Sound:</h4>
+			<button class="btn btn-default">On</button>
+		</div>
+	</div>
+
+	<div class="main col-xs-10 col-xs-offset-1 text-center">
+		<h2 ng-bind="routine.steps[index]"></h2>
+		<button class="btn btn-default" ng-click="nextStep()" ng-if="!finish">Next</button>
+		<button class="btn btn-default" ng-click="finishRoutine()" ng-if="finish">Finish!</button>
+	</div>
+	<div class="tip col-xs-10 col-xs-offset-1">
+		<h5>Tip:</h5>
+		<p>You can also say the word "<strong>NEXT</strong>" to move to the next leg of the workout routine.</p>
+	</div>
+</div>

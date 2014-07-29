@@ -16,8 +16,40 @@ trex.factory('SessionFactory', function($http) {
 		$http.get('/session/destroy')
 	}
 
-	return factory;
+	return factory
 });
+
+trex.factory('UserFactory', function($http, SessionFactory) {
+	factory = {}
+
+	factory.addUser = function(data, callback) {
+		$http.post('/users/create', {
+			username: data.username,
+			email: data.email,
+			password: data.password,
+			password_confirmation: data.password_confirmation
+		}).success(function(data){
+			callback(data)
+		})
+	}
+
+	factory.loginUser = function(data, callback) {
+		$http.post('/users/login', {
+			username: data.username,
+			password: data.password
+		}).success(function(data) {
+			callback(data)
+		})
+	}
+
+	factory.getUsernameById = function(data, callback) {
+		$http.get('/users/' + data).success(function(user) {
+			callback(user)
+		})
+	}
+
+	return factory
+})
 
 trex.factory('RoutineFactory', function($http, $location) {
 	factory = {}

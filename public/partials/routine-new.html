@@ -55,10 +55,9 @@
 		</div>
 		<button class="addStepBtn btn btn-default center-block" ng-click="addStep()">Add a step</button>
 		<div class="form-group">
-			<label for="repetitions" class="col-xs-4">Repeat?</label>
+			<label for="repetitions" class="col-xs-4">Number of cycles</label>
 			<div class="col-xs-8">
 				<select class="form-control" ng-model="new_routine.cycles">
-					<option value="0">No</option>
 					<option ng-repeat="n in [] | range: 10" value="{{ n + 1 }}">{{ n + 1 }}x</option>
 				</select>
 			</div>

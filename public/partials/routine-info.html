@@ -1,0 +1,32 @@
+<style>
+	body {
+		padding: 5px;
+	}
+	button b, button h6 {
+		display: inline;
+	}
+
+	.main {
+		margin-top: 5em;
+		margin-bottom: 5em;
+	}
+</style>
+<div ng-controller="RoutineSequenceController">
+	<a class="btn btn-default" ng-href="#/routines"><b class="glyphicon glyphicon-chevron-left"></b><h6> Back</h6></a>
+
+	<div class="main text-center">
+		<h2 ng-bind="routine.title"></h2>
+		<h5>Duration: <span ng-bind="routine.duration"></span> mins</h5>
+		<h5>Intensity: <span ng-bind="routine.intensity"></span>/10</h5>
+		<a class="btn btn-default" ng-click="startRoutine()">Start</a>
+	</div>
+
+	<div class="col-xs-6 text-center">
+		<h4>Description</h4>
+		<p ng-bind="routine.description"></p>
+	</div>
+	<div class="col-xs-6 text-center">
+		<h4>Content</h4>
+		<p ng-repeat="step in routine.steps" ng-bind="step"></p>
+	</div>
+</div>

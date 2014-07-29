@@ -27,6 +27,18 @@ trex.config(function($routeProvider) {
 		{
 			templateUrl: 'partials/routine-new.html'
 		})
+		.when('/routines/:id',
+		{
+			templateUrl: 'partials/routine-info.html'
+		})
+		.when('/routine-sequence/:id',
+		{
+			templateUrl: 'partials/routine-sequence.html'
+		})
+		.when('/routine-finish/:id',
+		{
+			templateUrl: 'partials/routine-finish.html'
+		})
 		.when('/routines/:id/edit',
 		{
 			templateUrl: 'partials/routine-edit.html'

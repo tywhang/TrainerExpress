@@ -52,7 +52,7 @@ var RoutineSchema = new mongoose.Schema({
 	intensity: { type: Number, required: true, validate: intensityValidator },
 	description: { type: String, required: true, validate: descriptionValidator },
 	steps: { type: Array, required: true, validate: stepsValidator },
-	cycles: { type: Number, required: true, default: 0, validate: cyclesValidator },
+	cycles: { type: Number, required: true, default: 1, validate: cyclesValidator },
 	num_completed: { type: Number, required: true, default: 0 },
 	user_id: { type: String, required: true },
 	created_at: { type: Date, default: Date.now },
