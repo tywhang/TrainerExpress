@@ -20,11 +20,22 @@ trex.controller('FrontPageController', function($http, $scope, $location, Sessio
 			username: $scope.return_user.username,
 			password: $scope.return_user.password
 		}).success(function(data) {
+			console.log(data)
 			$scope.login_error = data.message
-			SessionFactory.setSessionID(data._id)
-			$location.path('/users/' + data._id)
+			if (data.status == 'success') {
+				SessionFactory.setSessionID(data._id)
+				$location.path('/users/' + data._id)
+			}
 		})
 	}
+});
+
+trex.controller('HeaderController', function($scope, SessionFactory){
+	
+	SessionFactory.getSessionID(function(data){
+		$scope.sessionID = data;
+	});
+	
 });
 
 trex.controller('UserController', function($scope, $http, $location, SessionFactory, RoutineFactory) {

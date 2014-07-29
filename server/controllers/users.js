@@ -38,11 +38,15 @@ module.exports = {
       if(err) {
         res.send(JSON.stringify(err));
       } else {
-        if (result === null || result['password'] !== req.body.password) {
-         res.send({status: 'Fail', message: 'Invalid username/password combination'})
-       } else {
-         res.send({status: 'Success', _id: result['_id'] })
-       }
+        if (result !== null) {
+          if(result.password === req.body.password) {
+            res.send({ status: 'success', _id: result._id })            
+          } else {
+            res.send({ status: 'fail', message: 'Invalid username/password combination'})
+          }
+        } else {
+            res.send({ status: 'fail', message: 'Invalid username/password combination'})
+        }
       }
     })
 

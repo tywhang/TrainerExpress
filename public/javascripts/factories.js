@@ -19,14 +19,6 @@ trex.factory('SessionFactory', function($http) {
 	return factory;
 });
 
-trex.controller('HeaderController', function($scope, SessionFactory){
-	
-	SessionFactory.getSessionID(function(data){
-		$scope.sessionID = data;
-	});
-	
-});
-
 trex.factory('RoutineFactory', function($http, $location) {
 	factory = {}
 
