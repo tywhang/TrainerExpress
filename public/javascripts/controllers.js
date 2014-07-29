@@ -61,7 +61,16 @@ trex.controller('RoutineController', function($scope, $http, SessionFactory, Rou
 		})
 	})
 
-	
+	$scope.destroyRoutine = function(id, index) {
+		$scope.user_routines.splice(index, 1);
+		console.log('user routines', $scope.user_routines)
+		if(confirm('Are you sure?')) {
+			RoutineFactory.destroyRoutine(
+			{
+				_id: id
+			})
+		}
+	}
 })
 
 trex.controller('NewRoutineController', function($scope, $http, $location, SessionFactory) {

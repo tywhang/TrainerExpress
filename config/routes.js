@@ -50,5 +50,7 @@ module.exports = function Routes(app){
  app.post('/routine/change', function(req, res) {
  	routines.update(req,res)
  })
-
+ app.post('/routine/destroy', function(req, res) {
+ 	routines.destroy(req, res)
+ })
 };

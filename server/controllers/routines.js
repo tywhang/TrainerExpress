@@ -18,7 +18,6 @@ module.exports = {
 			if (err) {
 				console.log(err)
 			} else {
-				console.log('Routine', routine)
 				res.send(routine)
 			}
 		})
@@ -60,6 +59,16 @@ module.exports = {
 				console.log(err)
 			} else {
 				res.send({ status: 'success' })
+			}
+		})
+	},
+
+	destroy: function(req, res) {
+		var routine = Routine.remove({ _id: req.body._id }, function(err, routine) {
+			if(err) {
+				console.log(err)
+			} else {
+				// res.send({ status: 'success' })
 			}
 		})
 	}

@@ -71,5 +71,12 @@ trex.factory('RoutineFactory', function($http, $location) {
 		})
 	}
 
+	factory.destroyRoutine = function(data) {
+		$http.post('/routine/destroy', 
+		{
+			_id: data._id
+		})
+	}
+
 	return factory
 })
