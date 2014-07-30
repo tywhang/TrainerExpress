@@ -32,8 +32,8 @@ To avoid confusion, the node app.js file is renamed: server.js
 
 
 
-English Explanation of architecture
------------------------------------
+Explanation of architecture
+---------------------------
 
 URL is read by app.js, which renders the corresponding partial in the views folder.
 
