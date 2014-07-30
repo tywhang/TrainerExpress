@@ -11,6 +11,29 @@
 		margin: 1em 0;
 	}
 
+	h5 {
+		display: block;
+		background-color: silver;
+		padding: 0.5em;
+		margin-bottom: 0.2em;
+	}
+
+	.backYellow {
+		background-color: yellow;
+	}
+	.backGreen {
+		background-color: green;
+	}
+	.backBlue {
+		background-color: blue;
+	}
+	.backRed {
+		background-color: red;
+	}
+	.backBlack {
+		background-color: black;
+	}
+
 	.welcome h4, .welcome a {
 		display: inline-block;
 	}
@@ -25,11 +48,30 @@
 			display: inline-block;
 			height: 10em;
 			width: 10em;
-			border: 1px solid silver;
 			text-align: center;
+			border: 1px solid silver;
+			position: relative;
 		}
 
-		button {
+			.routineTitle {
+				font-size: 1.25em;
+				display: block;
+				background-color: #222;
+				width: 100%;
+				color: white;
+				margin-top: 30%;
+			}
+
+			.routineIntensity {
+				font-size: 1em;
+				display: block;
+				background-color: #222;
+				width: 100%;
+				color: white;
+				bottom: 50%;
+			}
+
+		.routineButton {
 			margin-top: 10px;
 		}
 </style>
@@ -41,9 +83,18 @@
 
 	<div class="mySection section">
 		<h5>My Custom Workouts</h5>
-		<a ng-href="#/routines/{{ user_routine._id }}" class="slide" ng-repeat="user_routine in user_routines"><span ng-bind="user_routine.title"></span></a>
+		<a ng-href="#/routines/{{ user_routine._id }}" class="slide" ng-repeat="user_routine in user_routines" ng-class="{ 
+			'backBlack' : user_routine.intensity > 8, 
+			'backRed' : user_routine.intensity > 6,
+			'backBlue' : user_routine.intensity > 4,
+			'backGreen' : user_routine.intensity > 2,
+			'backYellow' : user_routine.intensity > 0 
+		}">
+			<span class="routineTitle" ng-bind="user_routine.title"></span>
+			<span class="routineIntensity">Intensity: {{ user_routine.intensity }}/10</span>
+		</a>
 	</div>
-	<div class="popSection section">
+	<!-- <div class="popSection section">
 		<h5>Popular Workout Routines</h5>
 		<a href="" class="slide">Morning routine</a>
 		<a href="" class="slide">Stretching</a>
@@ -51,12 +102,22 @@
 		<a href="" class="slide">Yoga - Hatha</a>
 		<a href="" class="slide">Quick 4</a>
 		<a href="" class="slide">Tabata</a>
-	</div>
+	</div> -->
 	<div class="allSection section">
 		<h5>All Workout Routines</h5>
-		<a ng-href="#/routines/{{ routine._id }}" class="slide" ng-repeat="routine in allRoutines"><span ng-bind="routine.title"></span></a>
+		<a ng-href="#/routines/{{ routine._id }}" class="slide" ng-repeat="routine in allRoutines" ng-class="{ 
+			'backBlack' : routine.intensity > 8, 
+			'backRed' : routine.intensity > 6,
+			'backBlue' : routine.intensity > 4,
+			'backGreen' : routine.intensity > 2,
+			'backYellow' : routine.intensity > 0 
+		}">
+			<span class="routineTitle" ng-bind="routine.title"></span>
+			<span class="routineIntensity">Intensity: {{ routine.intensity }}/10</span>
+		</a>
+
 	</div>
 	<div class="bottom text-center">
-		<a class="btn btn-default" ng-href="#/routines">Workout Dashboard</a>
+		<a class="btn btn-default routineButton" ng-href="#/routines">Workout Routine Dashboard</a>
 	</div>
 </div>
