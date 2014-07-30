@@ -1,6 +1,7 @@
 <style>
 	body {
 		padding: 5px;
+		background-color: silver;
 	}
 
 	h3 {
@@ -13,25 +14,29 @@
 
 	h5 {
 		display: block;
-		background-color: silver;
 		padding: 0.5em;
 		margin-bottom: 0.2em;
 	}
 
 	.backYellow {
-		background-color: yellow;
+		background: url('images/yellow.jpg');
+		background-size: cover;
 	}
 	.backGreen {
-		background-color: green;
+		background: url('images/green.jpg');
+		background-size: cover;
 	}
 	.backBlue {
-		background-color: blue;
+		background: url('images/blue.jpg');
+		background-size: cover;
 	}
 	.backRed {
-		background-color: red;
+		background: url('images/red.jpg');
+		background-size: cover;
 	}
 	.backBlack {
-		background-color: black;
+		background: url('images/black.jpg');
+		background-size: cover;
 	}
 
 	.welcome h4, .welcome a {
@@ -39,8 +44,8 @@
 	}
 
 	.section {
-		height: 14em;
-		overflow-x: auto;
+		height: 15em;
+		overflow: auto;
 		white-space: nowrap;
 	}
 
@@ -56,7 +61,7 @@
 			.routineTitle {
 				font-size: 1.25em;
 				display: block;
-				background-color: #222;
+				background: rgba(0, 0, 0, 0.5);
 				width: 100%;
 				color: white;
 				margin-top: 30%;
@@ -65,7 +70,7 @@
 			.routineIntensity {
 				font-size: 1em;
 				display: block;
-				background-color: #222;
+				background: rgba(0, 0, 0, 0.5);
 				width: 100%;
 				color: white;
 				bottom: 50%;
@@ -80,7 +85,6 @@
 		<h4>Welcome <span ng-bind="username"></span></h4>
 		<a class="pull-right" ng-click="logoutUser()">Logout</a>
 	</div>
-
 	<div class="mySection section">
 		<h5>My Custom Workouts</h5>
 		<a ng-href="#/routines/{{ user_routine._id }}" class="slide" ng-repeat="user_routine in user_routines" ng-class="{ 
