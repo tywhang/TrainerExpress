@@ -27,7 +27,7 @@ trex.controller('FrontPageController', function($http, $scope, $location, Sessio
 		}, function(data) {
 			if (data.status == 'success') {
 				SessionFactory.setSessionID(data._id)
-				$location.path('/users/' + data._id)
+				$location.path('/user-dashboard')
 			} else {
 				$scope.login_error = data.message
 			}

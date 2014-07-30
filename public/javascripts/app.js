@@ -15,7 +15,7 @@ trex.config(function($routeProvider) {
 		{
 			templateUrl: 'partials/login.html'
 		})
-		.when('/users/:id',
+		.when('/user-dashboard',
 		{
 			templateUrl: 'partials/user-dashboard.html'
 		})
