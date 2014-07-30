@@ -17,10 +17,15 @@ Flow Chart
 [app.js (Angular routes)]
 
 -> [views/ (Angular)] 
+
 -> [controllers/ (Angular)]
+
 -> [routes [Express]] 
+
 -> [controllers/ (Express)] 
+
 -> [models/ [Mongoose]] 
+
 -> [MongoDB (NoSQL DB)]
 
 To avoid confusion, the node app.js file is renamed: server.js
