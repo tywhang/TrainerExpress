@@ -1,32 +1,47 @@
 <style>
 	body {
 		padding: 5px;
-	}
-	button b, button h6 {
-		display: inline;
+		background: url('images/bluesky.jpg') no-repeat center center fixed;
+		background-size: cover;
+		color: white;
 	}
 
+
 	.main {
-		margin-top: 5em;
-		margin-bottom: 5em;
+		width: 90%;
+		margin: 5em auto;
+		border: 3px solid silver;
+		border-radius: 5px;
+		background-color: white;
+		color: black;
+		padding: 1em;
+	}
+		.main a {
+			width: 10em;
+		}
+	.topMain {
+		margin-bottom: 2em;
 	}
 </style>
 <div ng-controller="RoutineSequenceController">
 	<a class="btn btn-default" ng-href="#/routines"><b class="glyphicon glyphicon-chevron-left"></b><h6> Back</h6></a>
+	<div class="main row">
+		<div class="topMain text-center">
+			<h2 ng-bind="routine.title"></h2>
+			<h5>Duration: <span ng-bind="routine.duration"></span> mins</h5>
+			<h5>Intensity: <span ng-bind="routine.intensity"></span>/10</h5>
+			<a class="btn btn-success" ng-click="startRoutine()">Start</a>
+		</div>
 
-	<div class="main text-center">
-		<h2 ng-bind="routine.title"></h2>
-		<h5>Duration: <span ng-bind="routine.duration"></span> mins</h5>
-		<h5>Intensity: <span ng-bind="routine.intensity"></span>/10</h5>
-		<a class="btn btn-default" ng-click="startRoutine()">Start</a>
-	</div>
-
-	<div class="col-xs-6 text-center">
-		<h4>Description</h4>
-		<p ng-bind="routine.description"></p>
-	</div>
-	<div class="col-xs-6 text-center">
-		<h4>Content</h4>
-		<p ng-repeat="step in routine.steps" ng-bind="step"></p>
+		<div class="col-xs-6 text-center">
+			<h4>Description</h4>
+			<p ng-bind="routine.description"></p>
+		</div>
+		<div class="col-xs-6 text-center">
+			<h4>Content</h4>
+			<p ng-repeat="step in routine.steps" ng-bind="step"></p>
+			<p>(Repeat: {{ routine.cycles }} times)</p>
+		</div>
+		
 	</div>
 </div>

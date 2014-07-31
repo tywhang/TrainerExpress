@@ -1,9 +1,18 @@
 	<style>
+		body {
+			padding: 5px;
+			background: url('images/bluesky.jpg') no-repeat center center fixed;
+			background-size: cover;
+			color: white;
+		}
+
 		button b, button h6 {
 			display: inline;
 		}
 
 		.main {
+			background-color: white;
+			color: black;
 			border: 1px solid black;
 			margin-top: 2em;
 			margin-bottom: 2em;
@@ -11,7 +20,6 @@
 		}
 	</style>
 <div ng-controller="RoutineSequenceController">
-	<h3>Trainer Express</h3>
 	<a class="btn btn-default" ng-href="#/routines"><b class="glyphicon glyphicon-chevron-left"></b><h6> Back to Homepage</h6></a>
 	
 	<div class="main col-xs-10 col-xs-offset-1 text-center">
