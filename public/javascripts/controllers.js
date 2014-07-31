@@ -150,13 +150,14 @@ trex.controller('EditRoutineController', function($scope, $routeParams, RoutineF
 	}
 })
 
-trex.controller('RoutineSequenceController', function($scope, $location, $routeParams, RoutineFactory) {
+trex.controller('RoutineSequenceController', function($scope, $location, $routeParams, RoutineFactory, TimeFactory) {
 	RoutineFactory.getRoutineById($routeParams.id, function(routine) {
 		$scope.routine = routine
 	})
 
 	$scope.startRoutine = function() {
 		$location.path('/routine-sequence/' + $scope.routine._id)
+		TimeFactory.startTime();
 	}
 
 	$scope.index = 0
@@ -175,6 +176,13 @@ trex.controller('RoutineSequenceController', function($scope, $location, $routeP
 	}
 
 	$scope.finishRoutine = function() {
-		$location.path('/routine-finish/' + $scope.routine._id)
+		$location.path('/routine-finish/' + $scope.routine._id)	
 	}
+
+	TimeFactory.getDiff(function(data) {
+		$scope.hours = Math.floor(data / 1000 / 60 / 60)
+		$scope.mins = Math.floor(data / 1000 / 60)
+		$scope.secs = Math.floor(data / 1000)
+	})
+
 })

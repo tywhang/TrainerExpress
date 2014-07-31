@@ -104,3 +104,19 @@ trex.factory('RoutineFactory', function($http, $location) {
 
 	return factory
 })
+
+trex.factory('TimeFactory', function() {
+	factory = {}
+
+	var startTime;
+
+	factory.startTime = function() {
+		startTime = new Date()
+	}
+
+	factory.getDiff = function(callback) {
+		callback(new Date() - startTime)
+	}
+
+	return factory
+})
